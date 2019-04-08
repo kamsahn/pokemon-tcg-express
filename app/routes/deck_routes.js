@@ -28,8 +28,8 @@ router.get('/decks/:id', (req, res, next) => {
     .catch(next)
 })
 
-router.post('/decks', requireToken, (req, res, next) => {
-  req.body.deck.owner = req.user.id
+router.post('/decks', (req, res, next) => {
+  // req.body.deck.owner = req.user.id
 
   Deck.create(req.body.deck)
     .then(deck => {
@@ -38,13 +38,13 @@ router.post('/decks', requireToken, (req, res, next) => {
     .catch(next)
 })
 
-router.patch('/decks/:id', requireToken, removeBlanks, (req, res, next) => {
+router.patch('/decks/:id', removeBlanks, (req, res, next) => {
   delete req.body.deck.owner
 
   Deck.findById(req.params.id)
     .then(handle404)
     .then(deck => {
-      requireOwnership(req, deck)
+      // requireOwnership(req, deck)
 
       return deck.update(req.body.deck)
     })
@@ -52,11 +52,11 @@ router.patch('/decks/:id', requireToken, removeBlanks, (req, res, next) => {
     .catch(next)
 })
 
-router.delete('/decks/:id', requireToken, (req, res, next) => {
+router.delete('/decks/:id', (req, res, next) => {
   Deck.findById(req.params.id)
     .then(handle404)
     .then(deck => {
-      requireOwnership(req, deck)
+      // requireOwnership(req, deck)
       deck.remove()
     })
     .then(() => res.sendStatus(204))
