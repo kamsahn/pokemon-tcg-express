@@ -11,7 +11,14 @@ const deckSchema = new mongoose.Schema({
   //   required: true
   // }
 }, {
-  timestamps: true
+  timestamps: true,
+  toObject: {virtuals: true}
+})
+
+deckSchema.virtual('cards', {
+  ref: 'Card',
+  localField: '_id',
+  foreignField: 'deck'
 })
 
 module.exports = mongoose.model('Deck', deckSchema)

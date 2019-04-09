@@ -10,10 +10,11 @@ const removeBlanks = require('../../lib/remove_blank_fields')
 const requireToken = passport.authenticate('bearer', { session: false })
 
 const router = express.Router()
+const Card = require('../models/card.js')
 
 // to require ownership, add requireToken as second argument in router functions
 router.get('/decks', (req, res, next) => {
-  Deck.find()
+  Deck.find().populate('cards')
     .then(decks => {
       return decks.map(deck => deck.toObject())
     })
@@ -22,7 +23,7 @@ router.get('/decks', (req, res, next) => {
 })
 
 router.get('/decks/:id', (req, res, next) => {
-  Deck.findById(req.params.id)
+  Deck.findById(req.params.id).populate('cards')
     .then(handle404)
     .then(deck => res.status(200).json({ deck: deck.toObject() }))
     .catch(next)
@@ -57,6 +58,8 @@ router.delete('/decks/:id', (req, res, next) => {
     .then(handle404)
     .then(deck => {
       // requireOwnership(req, deck)
+      const id = deck
+      Card.deleteMany({deck: id}, (err, res) => { if (err) throw err })
       deck.remove()
     })
     .then(() => res.sendStatus(204))
