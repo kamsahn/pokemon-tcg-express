@@ -13,7 +13,7 @@ const router = express.Router()
 const Card = require('../models/card.js')
 
 // to require ownership, add requireToken as second argument in router functions
-router.get('/decks', (req, res, next) => {
+router.get('/decks', requireToken, (req, res, next) => {
   Deck.find().populate('cards')
     .then(decks => {
       return decks.map(deck => deck.toObject())
@@ -22,15 +22,15 @@ router.get('/decks', (req, res, next) => {
     .catch(next)
 })
 
-router.get('/decks/:id', (req, res, next) => {
+router.get('/decks/:id', requireToken, (req, res, next) => {
   Deck.findById(req.params.id).populate('cards')
     .then(handle404)
     .then(deck => res.status(200).json({ deck: deck.toObject() }))
     .catch(next)
 })
 
-router.post('/decks', (req, res, next) => {
-  // req.body.deck.owner = req.user.id
+router.post('/decks', requireToken, (req, res, next) => {
+  req.body.deck.owner = req.user.id
 
   Deck.create(req.body.deck)
     .then(deck => {
@@ -39,13 +39,13 @@ router.post('/decks', (req, res, next) => {
     .catch(next)
 })
 
-router.patch('/decks/:id', removeBlanks, (req, res, next) => {
+router.patch('/decks/:id', requireToken, removeBlanks, (req, res, next) => {
   delete req.body.deck.owner
 
   Deck.findById(req.params.id)
     .then(handle404)
     .then(deck => {
-      // requireOwnership(req, deck)
+      requireOwnership(req, deck)
 
       return deck.update(req.body.deck)
     })
@@ -53,11 +53,11 @@ router.patch('/decks/:id', removeBlanks, (req, res, next) => {
     .catch(next)
 })
 
-router.delete('/decks/:id', (req, res, next) => {
+router.delete('/decks/:id', requireToken, (req, res, next) => {
   Deck.findById(req.params.id)
     .then(handle404)
     .then(deck => {
-      // requireOwnership(req, deck)
+      requireOwnership(req, deck)
       const id = deck
       Card.deleteMany({deck: id}, (err, res) => { if (err) throw err })
       deck.remove()
