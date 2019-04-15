@@ -12,7 +12,6 @@ const requireToken = passport.authenticate('bearer', { session: false })
 const router = express.Router()
 const Card = require('../models/card.js')
 
-// to require ownership, add requireToken as second argument in router functions
 router.get('/decks', requireToken, (req, res, next) => {
   Deck.find().populate('cards')
     .then(decks => {

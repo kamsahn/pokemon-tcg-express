@@ -11,8 +11,7 @@ const requireToken = passport.authenticate('bearer', { session: false })
 
 const router = express.Router()
 
-// to require ownership, add requireToken as second argument in router functions
-router.get('/cards', (req, res, next) => {
+router.get('/cards', requireToken, (req, res, next) => {
   Card.find()
     .then(cards => {
       return cards.map(card => card.toObject())
@@ -21,15 +20,15 @@ router.get('/cards', (req, res, next) => {
     .catch(next)
 })
 
-router.get('/cards/:id', (req, res, next) => {
+router.get('/cards/:id', requireToken, (req, res, next) => {
   Card.findById(req.params.id)
     .then(handle404)
     .then(card => res.status(200).json({ card: card.toObject() }))
     .catch(next)
 })
 
-router.post('/cards', (req, res, next) => {
-  // req.body.card.owner = req.user.id
+router.post('/cards', requireToken, (req, res, next) => {
+  req.body.card.owner = req.user.id
 
   Card.create(req.body.card)
     .then(card => {
@@ -38,13 +37,13 @@ router.post('/cards', (req, res, next) => {
     .catch(next)
 })
 
-router.patch('/cards/:id', removeBlanks, (req, res, next) => {
+router.patch('/cards/:id', requireToken, removeBlanks, (req, res, next) => {
   delete req.body.card.owner
 
   Card.findById(req.params.id)
     .then(handle404)
     .then(card => {
-      // requireOwnership(req, card)
+      requireOwnership(req, card)
 
       return card.update(req.body.card)
     })
@@ -52,11 +51,11 @@ router.patch('/cards/:id', removeBlanks, (req, res, next) => {
     .catch(next)
 })
 
-router.delete('/cards/:id', (req, res, next) => {
+router.delete('/cards/:id', requireToken, (req, res, next) => {
   Card.findById(req.params.id)
     .then(handle404)
     .then(card => {
-      // requireOwnership(req, card)
+      requireOwnership(req, card)
       card.remove()
     })
     .then(() => res.sendStatus(204))
