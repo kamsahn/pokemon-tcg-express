@@ -13,7 +13,7 @@ const router = express.Router()
 const Card = require('../models/card.js')
 
 router.get('/decks', requireToken, (req, res, next) => {
-  Deck.find().populate('cards')
+  Deck.find({ owner: req.user._id }).populate('cards')
     .then(decks => {
       return decks.map(deck => deck.toObject())
     })
