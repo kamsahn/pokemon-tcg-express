@@ -10,6 +10,18 @@ const cardSchema = new mongoose.Schema({
     ref: 'Deck',
     required: true
   },
+  imageUrl: {
+    type: String
+  },
+  types: {
+    type: String
+  },
+  number: {
+    type: Number
+  },
+  setCode: {
+    type: String
+  },
   owner: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User',
