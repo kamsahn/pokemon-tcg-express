@@ -30,7 +30,7 @@ const router = express.Router()
 router.post('/cards', requireToken, (req, res, next) => {
   req.body.card.owner = req.user.id
   const newCard = req.body.card
-  Card.find({ deck: req.card.deck })
+  Card.find({ deck: req.body.card.deck })
     .then((cards) => {
       if (cards.length < 60) {
         return Card.create(newCard)
