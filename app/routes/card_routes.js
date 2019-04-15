@@ -33,7 +33,12 @@ router.post('/cards', requireToken, (req, res, next) => {
   Card.find({ deck: req.body.card.deck })
     .then((cards) => {
       if (cards.length < 60) {
-        return Card.create(newCard)
+        if (newCard.supertype === 'Energy') {
+          return Card.create(newCard)
+        }
+        if (cards.filter(card => card.name === newCard.name).length < 4) {
+          return Card.create(newCard)
+        }
       }
     })
     .then(card => {

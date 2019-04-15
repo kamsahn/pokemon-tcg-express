@@ -22,6 +22,9 @@ const cardSchema = new mongoose.Schema({
   setCode: {
     type: String
   },
+  supertype: {
+    type: String
+  },
   owner: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User',
