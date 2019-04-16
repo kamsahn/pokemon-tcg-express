@@ -3,8 +3,7 @@ const mongoose = require('mongoose')
 const deckSchema = new mongoose.Schema({
   title: {
     type: String,
-    required: true,
-    unique: true
+    required: true
   },
   owner: {
     type: mongoose.Schema.Types.ObjectId,

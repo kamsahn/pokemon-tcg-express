@@ -30,8 +30,12 @@ router.get('/decks/:id', requireToken, (req, res, next) => {
 
 router.post('/decks', requireToken, (req, res, next) => {
   req.body.deck.owner = req.user.id
-
-  Deck.create(req.body.deck)
+  Deck.find({ title: req.body.deck.title })
+    .then(res => {
+      if (res.length === 0) {
+        return Deck.create(req.body.deck)
+      }
+    })
     .then(deck => {
       res.status(201).json({ deck: deck.toObject() })
     })
