@@ -27,8 +27,4 @@ deckSchema.virtual('cards', {
   foreignField: 'deck'
 })
 
-deckSchema.virtual('wins', {
-  type: Number
-})
-
 module.exports = mongoose.model('Deck', deckSchema)
