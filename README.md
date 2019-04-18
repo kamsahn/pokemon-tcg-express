@@ -11,6 +11,7 @@ Deployed Client: https://kamsahn.github.io/pokemon-tcg-react
 Client Repo: https://github.com/kamsahn/pokemon-tcg-react
 
 Deployed API: https://pokemon-deckbuilder.herokuapp.com
+*note: nothing should be accessible without authentication via client
 
 ## Technologies Used
 
