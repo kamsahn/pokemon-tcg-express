@@ -292,7 +292,7 @@ curl "https://pokemon-deckbuilder.herokuapp.com/cards/${ID}" \
 
 ## Back End Installation Guide
 
-Most easily, the deck builder API can be accessed through it's [client](https://kamsahn.github.io/pokemon-tcg-react) in your favorite web browser. If you want to run this locally, fork and clone this repo and in your terminal run `npm run start`. You will have to sign up/in to access the database with the following commands:
+Most easily, the deck builder API can be accessed through it's [client](https://kamsahn.github.io/pokemon-tcg-react) in your favorite web browser. If you want to run this locally, fork and clone this repo and in your terminal run `npm install` and then `npm run start`. You will have to sign up/in to access the database with the following commands:
 
 ```
 EMAIL=ash@ash PASSWORD=ash sh curl-scripts/auth/sign-up.sh
