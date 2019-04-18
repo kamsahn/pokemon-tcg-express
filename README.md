@@ -22,12 +22,12 @@ Deployed API: https://pokemon-deckbuilder.herokuapp.com
 
 ## Unsolved Problems / Future Plans
 
-- [] Styling and user experience upgrade
+- [x] Styling and user experience upgrade
 - [] Deck copying for smaller edits
-- [] Hand draw simulator for testing deck viability
+- [x] Hand draw simulator for testing deck viability
 - [x] 60 card deck limit
 - [x] 4 of a kind rule for cards (excluding energy cards)
-- [] Win/lose counter for deck resource
+- [x] Win/lose counter for deck resource
 - [] Have a current deck, making adding cards more seemless
 - [] Advanced search filters
 
@@ -289,7 +289,7 @@ curl "https://pokemon-deckbuilder.herokuapp.com/cards/${ID}" \
 
 ## Back End Installation Guide
 
-Most easily, the deck builder API can be accessed through it's [client](https://kamsahn.github.io/pokemon-tcg-react) in your favorite web browser. If you want to run this locally, fork and clone this repo and in your terminal run `npm run start`. You will have to sign up/in to access the database with the following commands:
+Most easily, the deck builder API can be accessed through it's [client](https://kamsahn.github.io/pokemon-tcg-react) in your favorite web browser. If you want to run this locally, fork and clone this repo and in your terminal run `npm install` and then `npm run start`. You will have to sign up/in to access the database with the following commands:
 
 ```
 EMAIL=ash@ash PASSWORD=ash sh curl-scripts/auth/sign-up.sh
