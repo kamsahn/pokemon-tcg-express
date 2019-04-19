@@ -69,10 +69,10 @@ Scripts are included in [`curl-scripts`](curl-scripts) to test built-in actions.
 
 | Verb   | URI Pattern            | Controller#Action             |
 |--------|------------------------|-------------------------------|
-| POST   | `/sign-up`             | `users.post/sign-up`          |
-| POST   | `/sign-in`             | `users.post/sign-in`          |
-| PATCH  | `/change-password`     | `users.patch/change-password` |
-| DELETE | `/sign-out`            | `users.delete/sign-out`       |
+| POST   | `/sign-up`             | `users#sign-up`               |
+| POST   | `/sign-in`             | `users#sign-in`               |
+| PATCH  | `/change-password`     | `users#change-password`       |
+| DELETE | `/sign-out`            | `users#sign-out`              |
 
 #### POST /sign-up
 
@@ -197,7 +197,7 @@ HTTP/1.1 204 No Content
 ### Deck
 | Verb    | URI Pattern           | Route Action      |
 |---------|-----------------------|-------------------|
-| POST    | `/decks`              | `create`          |
+| POST    | `/decks`              | `decks#create`    |
 | GET     | `/decks`              | `decks#index`     |
 | GET     | `/decks/:id`          | `decks#show`      |
 | PATCH   | `/decks/:id`          | `decks#update`    |
